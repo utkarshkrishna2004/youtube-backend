@@ -60,7 +60,7 @@ const userSchema = new Schema(
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next(); // ie, if the password isn't modified, then just return the next() flag.
 
-    this.password = bcrypt.hash(this.password, 10);
+    this.password = await bcrypt.hash(this.password, 10);
     next(); // ie, if the password is modified, then, first encrypt it just before saving (that's why we used .pre) and then only return the next() flag.
 });
 
